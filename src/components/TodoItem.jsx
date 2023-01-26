@@ -3,11 +3,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 
-const Task = ( { task, deleteHandler } ) => {
+const Task = ( { task, deleteHandler, checkHandler } ) => {
 
     return(
         <div className="flex items-center  justify-between bg-white rounded-md px-3 w-full my-2 py-4 shadow-sm">
-            <button >
+            <button onClick={() => checkHandler(task)} >
                 { !task.status ? <CheckBoxIcon color="primary" className="opacity-40"/> : 
                 <CheckBoxIcon color="primary"  /> }
             </button>

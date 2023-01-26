@@ -23,6 +23,23 @@ function App() {
 
   }
 
+  const handleCheck = (task) => {
+    setListTasks(
+        listTasks.map( t => {
+            if (t._id === task._id) {
+                let checkedTask = {
+                    ...task,
+                    status: !task.status,
+                }
+                return checkedTask;
+            } else {
+                return t;
+            }
+        })
+    );
+
+}
+
 
   return (
     <div className="flex flex-col items-center w-full h-full bg-white my-10 gap-6">
@@ -32,6 +49,7 @@ function App() {
              />
             <Todos 
                 tasks={listTasks}
+                checkHandler={handleCheck}
                 deleteHandler={handleDelete}  />
         </div>
   );
