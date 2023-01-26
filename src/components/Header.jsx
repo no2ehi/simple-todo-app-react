@@ -1,8 +1,12 @@
-const Header = ({ handleSubmit, sortHandler }) => {
+import { useState } from 'react';
+import DialogTodoItem from './DialogTodoItem';
+
+const Header = ({ handleSubmit }) => {
+    const [open, setOpen] = useState(false);
 
     return(
         <div className="flex justify-between w-2/4">
-            <button 
+            <button onClick={() => setOpen(true)}
              className="bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded-md px-5 py-2">Add Task</button>
             <select 
              className="bg-gray-300 rounded-lg font-medium text-gray-600 px-4 py-2" >
@@ -11,7 +15,7 @@ const Header = ({ handleSubmit, sortHandler }) => {
                 <option value="Complete">Complete</option>
             </select>
 
-            
+            { open && <DialogTodoItem mode="add" open={open} setOpen={setOpen} handleSubmit={handleSubmit}/> }
 
         </div>
     )
