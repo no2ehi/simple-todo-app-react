@@ -1,6 +1,6 @@
 import Task from './TodoItem';
 
-const Tasks = ({ tasks, deleteHandler, checkHandler }) => {
+const Tasks = ({ tasks, deleteHandler, checkHandler, editeHandler }) => {
 
     return(
         <div className="flex flex-col items-center rounded-lg bg-gray-100 w-2/4 p-5 ">
@@ -9,6 +9,7 @@ const Tasks = ({ tasks, deleteHandler, checkHandler }) => {
                         task={task}
                         deleteHandler={deleteHandler}
                         checkHandler={checkHandler}
+                        editeHandler={editeHandler}
                           />
                 )) : (
                     <div className="flex flex-col items-center w-2/5 bg-gray-300 font-medium rounded p-2">

@@ -14,7 +14,7 @@ function App() {
             ...task,
         }
     ]);
-}
+  }
 
   const handleDelete = (_id) => {
     setListTasks(
@@ -37,8 +37,19 @@ function App() {
             }
         })
     );
+  }
 
-}
+  const handleEdit = (task) => {
+    setListTasks(
+        listTasks.map( t => {
+            if ( t._id === task._id) {
+                return task;
+            } else {
+                return t;
+            }
+        })
+    )
+  }
 
 
   return (
@@ -50,7 +61,8 @@ function App() {
             <Todos 
                 tasks={listTasks}
                 checkHandler={handleCheck}
-                deleteHandler={handleDelete}  />
+                deleteHandler={handleDelete}
+                editeHandler={handleEdit}  />
         </div>
   );
 }

@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import DialogTodoItem from './DialogTodoItem';
 
-
-const Task = ( { task, deleteHandler, checkHandler } ) => {
+const Task = ( { task, deleteHandler, checkHandler, editeHandler } ) => {
+    const [openEdit, setOpenEdit] = useState(false);
 
     return(
         <div className="flex items-center  justify-between bg-white rounded-md px-3 w-full my-2 py-4 shadow-sm">
@@ -21,10 +23,12 @@ const Task = ( { task, deleteHandler, checkHandler } ) => {
             <div className="">
                 <button onClick={() => deleteHandler(task._id)}
                  className="bg-gray-200 rounded-md p-1 mr-2"><DeleteIcon color="action" fontSize="small" /></button>
-                <button 
+                <button onClick={ () => setOpenEdit(true)}
                  className="bg-gray-200 rounded-md p-1"><EditIcon color="action" fontSize="small" /></button>
             </div>
-           
+            { openEdit && 
+            <DialogTodoItem mode="edit" open={openEdit} setOpen={setOpenEdit} handleSubmit={editeHandler} taskEdited={task} />
+            }
         </div>
     )
 }
