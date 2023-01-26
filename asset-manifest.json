@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/simple-todo-app-react/static/css/main.fc04f9e7.css",
+    "main.js": "/simple-todo-app-react/static/js/main.a75c9d0c.js",
+    "static/js/787.943c891a.chunk.js": "/simple-todo-app-react/static/js/787.943c891a.chunk.js",
+    "index.html": "/simple-todo-app-react/index.html",
+    "main.fc04f9e7.css.map": "/simple-todo-app-react/static/css/main.fc04f9e7.css.map",
+    "main.a75c9d0c.js.map": "/simple-todo-app-react/static/js/main.a75c9d0c.js.map",
+    "787.943c891a.chunk.js.map": "/simple-todo-app-react/static/js/787.943c891a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fc04f9e7.css",
+    "static/js/main.a75c9d0c.js"
+  ]
+}
