@@ -3,7 +3,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 
-const Task = ( { task } ) => {
+const Task = ( { task, deleteHandler } ) => {
 
     return(
         <div className="flex items-center  justify-between bg-white rounded-md px-3 w-full my-2 py-4 shadow-sm">
@@ -19,7 +19,7 @@ const Task = ( { task } ) => {
                 <span className="text-xs text-gray-700">{task.deadline.$d.toLocaleString()}</span>
             </div>
             <div className="">
-                <button 
+                <button onClick={() => deleteHandler(task._id)}
                  className="bg-gray-200 rounded-md p-1 mr-2"><DeleteIcon color="action" fontSize="small" /></button>
                 <button 
                  className="bg-gray-200 rounded-md p-1"><EditIcon color="action" fontSize="small" /></button>
