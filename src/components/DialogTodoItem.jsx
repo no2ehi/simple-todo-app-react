@@ -11,18 +11,20 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { v4 as uuid } from 'uuid';
+import { useTodosDispatch } from './TodoContext';
 
 
-const DialogTodoItem = ({ mode, open, setOpen, handleSubmit, taskEdited }) => {
+const DialogTodoItem = ({ mode, open, setOpen, taskEdited }) => {
     let id = uuid();
-    
+    const [dateOpen, setDateOpen] = useState(false);
     const [task, setTask] = useState({
         _id: id,
         title: '',
         status: false,
         deadline: dayjs('2018-08-18T21:11:54'),
     });
-    const [dateOpen, setDateOpen] = useState(false);
+    
+    const dispatch = useTodosDispatch();
 
     const handleChangeTask = (e) => {
         if (mode === 'edit') {
@@ -54,14 +56,19 @@ const DialogTodoItem = ({ mode, open, setOpen, handleSubmit, taskEdited }) => {
     };
     
     const submitHandler = () => {
-        handleSubmit(task)
+        if ( mode ==='add') {
+            dispatch({
+                type: 'added_todo',
+                task
+            })
+        } else {
+            dispatch({
+                type: 'changed_todo',
+                task
+            })
+        }
         setOpen(false);
-        setTask({
-            _id: "",
-            title: "",
-            status: false,
-            deadline: dayjs('2018-08-18T21:11:54')
-        });
+        setTask(null);
     }
 
     useEffect(() => {
