@@ -1,9 +1,9 @@
 import Task from './TodoItem';
-import { useTodos } from './TodoContext';
+import { useSelector } from 'react-redux';
 
 const Tasks = () => {
 
-    const {data: todos, filteredData} = useTodos();
+    const {data: todos, filteredData} = useSelector((state) => state.todos)
 
     return(
         <div className="flex flex-col items-center rounded-lg bg-gray-100 w-2/4 p-5 ">

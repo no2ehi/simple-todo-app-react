@@ -11,7 +11,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { v4 as uuid } from 'uuid';
-import { useTodosDispatch } from './TodoContext';
+import { useDispatch } from 'react-redux';
+import { addTodo, changedTodo } from './todoSlice';
 
 
 const DialogTodoItem = ({ mode, open, setOpen, taskEdited }) => {
@@ -24,7 +25,8 @@ const DialogTodoItem = ({ mode, open, setOpen, taskEdited }) => {
         deadline: dayjs('2018-08-18T21:11:54'),
     });
     
-    const dispatch = useTodosDispatch();
+    const dispatch = useDispatch();
+    
 
     const handleChangeTask = (e) => {
         if (mode === 'edit') {
@@ -57,16 +59,9 @@ const DialogTodoItem = ({ mode, open, setOpen, taskEdited }) => {
     
     const submitHandler = () => {
         if ( mode ==='add') {
-            console.log('add: ',task)
-            dispatch({
-                type: 'added_todo',
-                payload: task
-            })
+            dispatch(addTodo(task))
         } else {
-            dispatch({
-                type: 'changed_todo',
-                payload: task
-            })
+            dispatch(changedTodo(task))
         }
         setOpen(false);
         setTask(null);
@@ -74,7 +69,6 @@ const DialogTodoItem = ({ mode, open, setOpen, taskEdited }) => {
 
     useEffect(() => {
         if( mode === 'edit' ) {
-            console.log('ini edit: ', taskEdited)
             setTask({
                 ...taskEdited
             })

@@ -3,21 +3,20 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import DialogTodoItem from './DialogTodoItem';
-import { useTodosDispatch } from './TodoContext';
+import { useDispatch } from 'react-redux';
+import { changedTodo, deletedTodo } from './todoSlice';
 
 const Task = ({ todo }) => {
     const [openEdit, setOpenEdit] = useState(false);
-    const dispatch = useTodosDispatch();
-    // console.log(todo.deadline)
+    const dispatch = useDispatch();
+    
 
     return(
         <div className="flex items-center  justify-between bg-white rounded-md px-3 w-full my-2 py-4 shadow-sm">
-            <button onClick={ () =>
-                dispatch({
-                    type: 'changed_todo',
-                    payload: todo,
-                    status: !todo.status
-                })
+            <button onClick={ () => {
+                let status = !todo.status;
+                dispatch(changedTodo({todo, status}))
+            }
             } >
                 { !todo.status ? <CheckBoxIcon color="primary" className="opacity-40"/> : 
                 <CheckBoxIcon color="primary"  /> }
@@ -31,10 +30,7 @@ const Task = ({ todo }) => {
             </div>
             <div className="">
                 <button onClick={ () => 
-                dispatch({
-                        type: 'deleted_todo',
-                        payload: todo
-                    })
+                        dispatch(deletedTodo(todo))
                     }
                  className="bg-gray-200 rounded-md p-1 mr-2"><DeleteIcon color="action" fontSize="small" /></button>
                 <button onClick={ () => setOpenEdit(true)}
