@@ -13,7 +13,7 @@ const Header = () => {
             <select onChange={
                 (e) => dispatch({
                     type: 'sorted_todo',
-                    mode: e.target.value
+                    payload: e.target.value
                 })
             }
              className="bg-gray-300 rounded-lg font-medium text-gray-600 px-4 py-2" >

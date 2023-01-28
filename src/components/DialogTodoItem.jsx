@@ -57,14 +57,15 @@ const DialogTodoItem = ({ mode, open, setOpen, taskEdited }) => {
     
     const submitHandler = () => {
         if ( mode ==='add') {
+            console.log('add: ',task)
             dispatch({
                 type: 'added_todo',
-                task
+                payload: task
             })
         } else {
             dispatch({
                 type: 'changed_todo',
-                task
+                payload: task
             })
         }
         setOpen(false);
@@ -123,7 +124,8 @@ const DialogTodoItem = ({ mode, open, setOpen, taskEdited }) => {
                                 onClose={() => setDateOpen(false)}
                                 onChange={handleChangeDateTask}    
                                 renderInput={(params) => <TextField  fullWidth {...params}
-                                onClick={() => setDateOpen(true)} />}
+                                onClick={() => setDateOpen(true)}
+                                 />}
                             />
                         </LocalizationProvider> 
                     </Box>

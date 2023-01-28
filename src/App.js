@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import Header from './components/Header';
 import Todos from './components/Todos';
-import { TodoProvider, useTodosDispatch, useTodos } from './components/TodoContext';
+import { TodoProvider } from './components/TodoContext';
 
 function App() {
 

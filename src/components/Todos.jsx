@@ -4,19 +4,38 @@ import { useTodos } from './TodoContext';
 const Tasks = () => {
 
     const todos = useTodos();
+    // const {data: todos , filteredData} = useTodos();
+    // console.log(filteredData);
 
     return(
         <div className="flex flex-col items-center rounded-lg bg-gray-100 w-2/4 p-5 ">
-            { todos.length > 0 ? todos.map( (todo, i) => ( 
+            {
+                todos.length > 0 ? todos.map( (todo, i) => ( 
+                    <Task   key={i} 
+                            todo={todo}
+                              />
+                    )) : (
+                        <div className="flex flex-col items-center w-2/5 bg-gray-300 font-medium rounded p-2">
+                            No Todo Found!
+                        </div>
+                    )
+            }
+            {/* { filteredData != null ?  filteredData.map( (todo, i) => ( 
                 <Task   key={i} 
                         todo={todo}
                           />
-                )) : (
-                    <div className="flex flex-col items-center w-2/5 bg-gray-300 font-medium rounded p-2">
-                        No Todo Found!
-                    </div>
+                )) : ( 
+                    todos.length > 0 ? todos.map( (todo, i) => ( 
+                        <Task   key={i} 
+                                todo={todo}
+                                  />
+                        )) : (
+                            <div className="flex flex-col items-center w-2/5 bg-gray-300 font-medium rounded p-2">
+                                No Todo Found!
+                            </div>
+                        )
                 )
-            }
+            } */}
         </div>
     )
 }
