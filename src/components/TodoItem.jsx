@@ -4,7 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import DialogTodoItem from './DialogTodoItem';
 import { useDispatch } from 'react-redux';
-import { changedTodo, deletedTodo } from './todoSlice';
+import { checkTodo, deletedTodo } from './todoSlice';
 
 const Task = ({ todo }) => {
     const [openEdit, setOpenEdit] = useState(false);
@@ -14,9 +14,8 @@ const Task = ({ todo }) => {
     return(
         <div className="flex items-center  justify-between bg-white rounded-md px-3 w-full my-2 py-4 shadow-sm">
             <button onClick={ () => {
-                let status = !todo.status;
-                dispatch(changedTodo({todo, status}))
-            }
+                dispatch(checkTodo(todo))
+                }
             } >
                 { !todo.status ? <CheckBoxIcon color="primary" className="opacity-40"/> : 
                 <CheckBoxIcon color="primary"  /> }
@@ -26,7 +25,7 @@ const Task = ({ todo }) => {
                     className={`text-gray-700 font-medium ${todo.status && 'line-through'} `} >
                         {todo.title}
                 </span>
-                <span className="text-xs text-gray-700">{(todo.deadline.$d).toLocaleString()}</span>
+                <span className="text-xs text-gray-700">{todo.deadline}</span>
             </div>
             <div className="">
                 <button onClick={ () => 

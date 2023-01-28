@@ -22,7 +22,7 @@ const DialogTodoItem = ({ mode, open, setOpen, taskEdited }) => {
         _id: id,
         title: '',
         status: false,
-        deadline: dayjs('2018-08-18T21:11:54'),
+        deadline: '2/15/2023, 8:40:12 PM',
     });
     
     const dispatch = useDispatch();
@@ -44,15 +44,16 @@ const DialogTodoItem = ({ mode, open, setOpen, taskEdited }) => {
     };
 
     const handleChangeDateTask = (e) => {
+        let dateTime = e.$d.toLocaleString();
         if (mode === 'edit') {
             setTask({
                 ...taskEdited,
-                deadline: e
+                deadline: dateTime
             })
         } else {
             setTask({
                 ...task,
-                deadline: e
+                deadline: dateTime
             })
         }  
     };
