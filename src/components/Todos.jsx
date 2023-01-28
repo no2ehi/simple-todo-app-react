@@ -1,20 +1,27 @@
 import Task from './TodoItem';
+import { useTodos } from './TodoContext';
 
-const Tasks = ({ tasks, deleteHandler, checkHandler, editeHandler }) => {
+const Tasks = () => {
+
+    const {data: todos, filteredData} = useTodos();
 
     return(
         <div className="flex flex-col items-center rounded-lg bg-gray-100 w-2/4 p-5 ">
-            { tasks.length > 0 ? tasks.map( (task, i) => ( 
+
+            { filteredData != null ?  filteredData.map( (todo, i) => ( 
                 <Task   key={i} 
-                        task={task}
-                        deleteHandler={deleteHandler}
-                        checkHandler={checkHandler}
-                        editeHandler={editeHandler}
+                        todo={todo}
                           />
-                )) : (
-                    <div className="flex flex-col items-center w-2/5 bg-gray-300 font-medium rounded p-2">
-                        No Todo Found!
-                    </div>
+                )) : ( 
+                    todos.length > 0 ? todos.map( (todo, i) => ( 
+                        <Task   key={i} 
+                                todo={todo}
+                                  />
+                        )) : (
+                            <div className="flex flex-col items-center w-2/5 bg-gray-300 font-medium rounded p-2">
+                                No Todo Found!
+                            </div>
+                        )
                 )
             }
         </div>

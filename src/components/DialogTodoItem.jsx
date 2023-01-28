@@ -11,18 +11,20 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { v4 as uuid } from 'uuid';
+import { useTodosDispatch } from './TodoContext';
 
 
-const DialogTodoItem = ({ mode, open, setOpen, handleSubmit, taskEdited }) => {
+const DialogTodoItem = ({ mode, open, setOpen, taskEdited }) => {
     let id = uuid();
-    
+    const [dateOpen, setDateOpen] = useState(false);
     const [task, setTask] = useState({
         _id: id,
         title: '',
         status: false,
         deadline: dayjs('2018-08-18T21:11:54'),
     });
-    const [dateOpen, setDateOpen] = useState(false);
+    
+    const dispatch = useTodosDispatch();
 
     const handleChangeTask = (e) => {
         if (mode === 'edit') {
@@ -54,18 +56,25 @@ const DialogTodoItem = ({ mode, open, setOpen, handleSubmit, taskEdited }) => {
     };
     
     const submitHandler = () => {
-        handleSubmit(task)
+        if ( mode ==='add') {
+            console.log('add: ',task)
+            dispatch({
+                type: 'added_todo',
+                payload: task
+            })
+        } else {
+            dispatch({
+                type: 'changed_todo',
+                payload: task
+            })
+        }
         setOpen(false);
-        setTask({
-            _id: "",
-            title: "",
-            status: false,
-            deadline: dayjs('2018-08-18T21:11:54')
-        });
+        setTask(null);
     }
 
     useEffect(() => {
         if( mode === 'edit' ) {
+            console.log('ini edit: ', taskEdited)
             setTask({
                 ...taskEdited
             })
@@ -98,9 +107,9 @@ const DialogTodoItem = ({ mode, open, setOpen, handleSubmit, taskEdited }) => {
                             name="status"
                             select
                             label="Status"
-                            defaultValue="Incompelete"
+                            defaultValue={task.status}
                             fullWidth
-                            value={task.status}
+                            value={ task.status }
                             onChange={handleChangeTask}
                             required
                             >
@@ -116,7 +125,8 @@ const DialogTodoItem = ({ mode, open, setOpen, handleSubmit, taskEdited }) => {
                                 onClose={() => setDateOpen(false)}
                                 onChange={handleChangeDateTask}    
                                 renderInput={(params) => <TextField  fullWidth {...params}
-                                onClick={() => setDateOpen(true)} />}
+                                onClick={() => setDateOpen(true)}
+                                 />}
                             />
                         </LocalizationProvider> 
                     </Box>
