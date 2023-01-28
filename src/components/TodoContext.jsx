@@ -16,52 +16,64 @@ export const TodoProvider = ({ children }) => {
     )
 }
 
-const TodoReducer = (todos, { type, payload, status }) => {
+const TodoReducer = ({data: todos, filteredData}, { type, payload, status }) => {
     switch(type) {
         case 'added_todo': {
-            return [
+            let data = [
                 ...todos, 
                     {
                         ...payload
                     }
-                ]
+                ];
+                return {
+                    data: data,
+                    filteredData: null
+                };
+                
         }
         case 'changed_todo': {
             
-            return todos.map( t => {
+            let data = todos.map( t => {
                 if (t._id === payload._id) {
                 return {
                     ...payload,
                     status: status
                 }
-            } else {
-                return t;
-        }});
+                } else {
+                    return t;
+                }
+            });
+
+            return {
+                data: data,
+                filteredData: null
+            }
+
         }
         case 'sorted_todo': {
-            // console.log(payload, 'todos ::: ', todos.data,'%% filtered: ', todos.filteredData)
-            // if( payload === 'All') {
-            //     return {
-            //         ...todos,
-            //         filteredData: null
-            //     };
-            // } else if ( payload === 'Incomplete') {
-
-            //     return {
-            //        ...todos,
-            //         filteredData: todos.data.filter( t => !t.status  )
-            //     };
-            // } else {
-            //     let sortedListTasks = todos.data.filter( t => t.status  );
-
-            //     return {
-            //         ...todos,
-            //         filteredData: sortedListTasks
-            //     }
-            // }
+            if( payload === 'All') {
+                return {
+                    data: todos,
+                    filteredData: null
+                };
+            } else if ( payload === 'Incomplete') {            
+                return {
+                    data: todos,
+                    filteredData: todos.filter( t => !t.status )
+                };
+            } else {
+                return {
+                    data: todos,
+                    filteredData: todos.filter( t => t.status )
+                }
+            }
         }
         case 'deleted_todo': {
-            return todos.filter( t => t._id !== payload._id);
+            let data = todos.filter( t => t._id !== payload._id);
+            return {
+                data: data,
+                filteredData: null
+            }
         }
         default: {
             throw Error('Unknown action: ' + payload.type);
@@ -78,7 +90,8 @@ export const useTodosDispatch = () => {
     return useContext(TodosDispatchContext);
 }
 
-const initialTodos = [
+const initialTodos = {
+    data: [
         {
             _id: 1,
             title: 'Read boyd language book',
@@ -98,28 +111,6 @@ const initialTodos = [
             deadline: dayjs('2018-08-18T21:11:54'),
         },
 
-    ]
-
-// const initialTodos2 = {
-//     data: [
-//         {
-//             _id: 1,
-//             title: 'Read boyd language book',
-//             status: false,
-//             deadline: dayjs('2020-09-18T17:11:54'),
-//         },
-//         {
-//             _id: 2,
-//             title: 'Do My Home Work',
-//             status: true,
-//             deadline: dayjs('2012-02-18T10:16:04'),
-//         },
-//         {
-//             _id: 3,
-//             title: 'create mini project react',
-//             status: false,
-//             deadline: dayjs('2018-08-18T21:11:54'),
-//         },
-//     ],
-//     filteredData: null,
-// }
+    ],
+    filteredData: null
+}

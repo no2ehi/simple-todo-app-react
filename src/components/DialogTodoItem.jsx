@@ -74,6 +74,7 @@ const DialogTodoItem = ({ mode, open, setOpen, taskEdited }) => {
 
     useEffect(() => {
         if( mode === 'edit' ) {
+            console.log('ini edit: ', taskEdited)
             setTask({
                 ...taskEdited
             })
@@ -106,9 +107,9 @@ const DialogTodoItem = ({ mode, open, setOpen, taskEdited }) => {
                             name="status"
                             select
                             label="Status"
-                            defaultValue="Incompelete"
+                            defaultValue={task.status}
                             fullWidth
-                            value={task.status}
+                            value={ task.status }
                             onChange={handleChangeTask}
                             required
                             >
