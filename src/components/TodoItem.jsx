@@ -9,7 +9,6 @@ import { checkTodo, deletedTodo } from './todoSlice';
 const Task = ({ todo }) => {
     const [openEdit, setOpenEdit] = useState(false);
     const dispatch = useDispatch();
-    
 
     return(
         <div className="flex items-center  justify-between bg-white rounded-md px-3 w-full my-2 py-4 shadow-sm">

@@ -11,9 +11,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { v4 as uuid } from 'uuid';
-import { useDispatch } from 'react-redux';
-import { addTodo, changedTodo } from './todoSlice';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { addTodo, changedTodo, filteredTodo } from './todoSlice';
 
 const DialogTodoItem = ({ mode, open, setOpen, taskEdited }) => {
     let id = uuid();
@@ -25,6 +24,8 @@ const DialogTodoItem = ({ mode, open, setOpen, taskEdited }) => {
         deadline: '2/15/2023, 8:40:12 PM',
     });
     
+    const modeSort = useSelector((state) => state.todos.modeSort)
+    console.log('modeeee',modeSort)
     const dispatch = useDispatch();
     
 
@@ -61,8 +62,10 @@ const DialogTodoItem = ({ mode, open, setOpen, taskEdited }) => {
     const submitHandler = () => {
         if ( mode ==='add') {
             dispatch(addTodo(task))
+            dispatch(filteredTodo(modeSort))
         } else {
             dispatch(changedTodo(task))
+            dispatch(filteredTodo(modeSort))
         }
         setOpen(false);
         setTask(null);

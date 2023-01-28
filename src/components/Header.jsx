@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 import DialogTodoItem from './DialogTodoItem';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { filteredTodo } from './todoSlice';
 
 const Header = () => {
     const [open, setOpen] = useState(false);
     const dispatch = useDispatch();
-    const [mode, setMode] = useState();
+    const [mode, setMode] = useState('All');
 
-    // useEffect(() => {
-    //     dispatch(filteredTodo(mode));
-    // },[mode])
+    useEffect(() => {
+        dispatch(filteredTodo(mode));
+    },[mode])
 
     return(
         <div className="flex justify-between w-2/4">

@@ -22,6 +22,7 @@ const initialTodos = {
         },
 
     ],
+    modeSort: 'All',
     filteredData: null
 }
 
@@ -30,7 +31,7 @@ export const todoSlice = createSlice({
     initialState: initialTodos,
     reducers: {
         addTodo: (state , action) => {          
-            state.data.push(action.payload);
+                state.data.push(action.payload)
         },
         changedTodo: (state, action) => {
             state.data = state.data.map( (todo) =>
@@ -46,7 +47,30 @@ export const todoSlice = createSlice({
             state.data = state.data.filter( (t) => t._id !== action.payload._id)
         },
         filteredTodo: (state, action) => {
-            state.filteredData = null;
+            switch(action.payload) {
+                case 'All':
+                    return {
+                        data: state.data,
+                        modeSort: 'All',
+                        filteredData: null
+                    }
+                case 'Incomplete':
+                    let sorted = state.data.filter( (todo) => !todo.status );
+                    return {
+                        data: state.data,
+                        modeSort: 'Incomplete',
+                        filteredData: sorted
+                    }
+                case 'Complete':
+                    let sortedCompelete = state.data.filter( (todo) => todo.status );
+                    return {
+                        data: state.data,
+                        modeSort: 'Complete',
+                        filteredData: sortedCompelete
+                    }
+                default: 
+                    return state.data;
+            }
         }
     }
 })
